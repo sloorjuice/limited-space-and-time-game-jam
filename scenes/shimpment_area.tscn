@@ -1,0 +1,144 @@
+[gd_scene load_steps=11 format=3 uid="uid://bo4metyqj783d"]
+
+[ext_resource type="PackedScene" uid="uid://ckwpm6x5esjpa" path="res://scenes/shipment_block.tscn" id="1_gw266"]
+[ext_resource type="Script" uid="uid://gyqcmra7qhch" path="res://scenes/dock.gd" id="2_x0nqh"]
+[ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="3_yl6ga"]
+[ext_resource type="PackedScene" uid="uid://d1a6oumvt5sw4" path="res://scenes/back_button.tscn" id="4_7ai7p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngpfe"]
+size = Vector2(39.9861, 43.659687)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0nqh"]
+size = Vector2(37.209442, 35.79841)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ai7p"]
+size = Vector2(38.953674, 39.463326)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gw266"]
+size = Vector2(19.767494, 26.177994)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yl6ga"]
+size = Vector2(38.838676, 31.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykjpc"]
+size = Vector2(388, 20)
+
+[node name="ShimpmentArea" type="Node2D"]
+
+[node name="ShipmentBlock" parent="." instance=ExtResource("1_gw266")]
+position = Vector2(989, 540)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 611)
+scale = Vector2(28.759995, 1)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1, 1.4799951)
+color = Color(0.08235294, 0.18431373, 0.27450982, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(19.99305, 18.5)
+shape = SubResource("RectangleShape2D_ngpfe")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(0, 611)
+scale = Vector2(1.7199936, -15.280001)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = -14.534938
+offset_right = 25.465061
+offset_bottom = 40.0
+scale = Vector2(1.5116302, 1)
+color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(21.51171, 18.39005)
+scale = Vector2(1, 1.0000007)
+shape = SubResource("RectangleShape2D_x0nqh")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1084, 611)
+scale = Vector2(1.7199936, -15.280001)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+offset_top = -0.013089805
+offset_right = 40.0
+offset_bottom = 39.98691
+scale = Vector2(1.1860486, 1)
+color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(18.895447, 19.666235)
+scale = Vector2(1, 1.0000007)
+shape = SubResource("RectangleShape2D_7ai7p")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(471, 620)
+scale = Vector2(1.7199936, -15.280001)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D5"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.49696627, 0.6552009)
+color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+position = Vector2(9.883759, 13.088997)
+scale = Vector2(1.0023862, 1.0000007)
+shape = SubResource("RectangleShape2D_gw266")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(28.759995, 1)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D4"]
+offset_left = -0.069541045
+offset_top = -10.0
+offset_right = 39.930458
+offset_bottom = 30.0
+scale = Vector2(1, 1.9200003)
+color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(20.392914, 24.25)
+shape = SubResource("RectangleShape2D_yl6ga")
+
+[node name="ShipmentBlock2" parent="." instance=ExtResource("1_gw266")]
+position = Vector2(814, 540)
+
+[node name="ShipmentBlock3" parent="." instance=ExtResource("1_gw266")]
+position = Vector2(989, 303)
+
+[node name="ShipmentBlock5" parent="." instance=ExtResource("1_gw266")]
+position = Vector2(667, 434)
+
+[node name="Dock" type="Area2D" parent="."]
+position = Vector2(86, 593)
+script = ExtResource("2_x0nqh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dock"]
+position = Vector2(184, 0)
+shape = SubResource("RectangleShape2D_ykjpc")
+debug_color = Color(0.95123166, 0.16292608, 0.39000228, 0.41960785)
+
+[node name="Gui" parent="." instance=ExtResource("3_yl6ga")]
+
+[node name="BackButton" parent="." instance=ExtResource("4_7ai7p")]
+position = Vector2(83, 73)
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2(649, 344)
+scale = Vector2(1.7199936, -15.280001)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D6"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.49696627, 0.6552009)
+color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+position = Vector2(9.883759, 13.088997)
+scale = Vector2(1.0023862, 1.0000007)
+shape = SubResource("RectangleShape2D_gw266")

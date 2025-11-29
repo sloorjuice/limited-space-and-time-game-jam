@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcfgl2ti0dlq3"]
+
+[ext_resource type="Script" uid="uid://drm36r47kaije" path="res://scripts/defend_astroids.gd" id="1_034ic"]
+[ext_resource type="PackedScene" uid="uid://cuaau5md05tc6" path="res://scenes/ship.tscn" id="1_sv34s"]
+[ext_resource type="Script" uid="uid://ffm63tuupcxu" path="res://scripts/asteroid_spawner.gd" id="2_pnqu3"]
+[ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="4_pnuxm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_034ic"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnuxm"]
+bg_color = Color(1.347661e-06, 0.6255408, 0.63391316, 1)
+
+[node name="DefendAstroids" type="Node2D"]
+script = ExtResource("1_034ic")
+
+[node name="Ship" parent="." instance=ExtResource("1_sv34s")]
+position = Vector2(182, 335)
+
+[node name="AsteroidSpawner" type="Node2D" parent="."]
+position = Vector2(1, 0)
+script = ExtResource("2_pnqu3")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_top = 622.0
+offset_right = 1154.0
+offset_bottom = 649.0
+theme_override_styles/background = SubResource("StyleBoxFlat_034ic")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pnuxm")
+show_percentage = false
+
+[node name="Gui" parent="." instance=ExtResource("4_pnuxm")]

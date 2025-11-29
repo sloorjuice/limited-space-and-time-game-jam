@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://fyico5r5r8fn"]
+
+[ext_resource type="PackedScene" uid="uid://cbuii3t752xmh" path="res://scenes/oxygen_interface.tscn" id="1_uooeq"]
+[ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="2_4ig78"]
+[ext_resource type="PackedScene" uid="uid://xtcsfxp8mm3p" path="res://scenes/oxygen_can.tscn" id="3_4ig78"]
+[ext_resource type="PackedScene" uid="uid://d1a6oumvt5sw4" path="res://scenes/back_button.tscn" id="4_3qrkx"]
+
+[node name="OxygenArea" type="Node2D"]
+
+[node name="OxygenInterface" parent="." instance=ExtResource("1_uooeq")]
+position = Vector2(273, 346.00003)
+
+[node name="Gui" parent="." instance=ExtResource("2_4ig78")]
+
+[node name="OxygenCan2" parent="." instance=ExtResource("3_4ig78")]
+position = Vector2(796.00006, 352)
+
+[node name="OxygenCan" parent="." instance=ExtResource("3_4ig78")]
+position = Vector2(797, 172)
+
+[node name="OxygenCan3" parent="." instance=ExtResource("3_4ig78")]
+position = Vector2(903, 345)
+
+[node name="OxygenCan4" parent="." instance=ExtResource("3_4ig78")]
+position = Vector2(900, 155)
+
+[node name="BackButton" parent="." instance=ExtResource("4_3qrkx")]
+position = Vector2(32, 72)

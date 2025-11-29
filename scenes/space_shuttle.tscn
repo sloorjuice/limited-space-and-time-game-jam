@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://blb1vt7vc3vwn"]
+
+[ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="1_wrsgj"]
+[ext_resource type="PackedScene" uid="uid://bv66krjfnp5k6" path="res://scenes/oxygen_button.tscn" id="2_7afxs"]
+[ext_resource type="PackedScene" uid="uid://bdflx7dhofidn" path="res://scenes/food_button.tscn" id="3_81isq"]
+
+[node name="SpaceShuttle" type="Node2D"]
+
+[node name="Gui" parent="." instance=ExtResource("1_wrsgj")]
+
+[node name="OxygenButton" parent="." instance=ExtResource("2_7afxs")]
+position = Vector2(279, 314)
+
+[node name="FoodButton" parent="." instance=ExtResource("3_81isq")]
+position = Vector2(726, 345)

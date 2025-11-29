@@ -1,0 +1,232 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfsvi272xo3q6"]
+
+[ext_resource type="Script" uid="uid://cwox3qrpl081f" path="res://scripts/gui.gd" id="1_jbthi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l0yq"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbthi"]
+bg_color = Color(0.29731384, 0.65835, 0.7402918, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
+bg_color = Color(0.29140103, 0.72799426, 0.34058762, 1)
+
+[node name="Gui" type="CanvasLayer"]
+script = ExtResource("1_jbthi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="OxygenBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/Control"]
+custom_minimum_size = Vector2(125, 25)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_2l0yq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jbthi")
+max_value = 50.0
+value = 15.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Control"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "Oxygen Supply"
+
+[node name="Control2" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="FoodSupplyBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/Control2"]
+custom_minimum_size = Vector2(125, 25)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_2l0yq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5j4t3")
+max_value = 50.0
+value = 15.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Control2"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "Food Supply"
+
+[node name="DeathScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="DeathScreen"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.92, 2.7599988)
+color = Color(0.24115619, 0.24115601, 0.24115604, 0.7137255)
+
+[node name="GameOver" type="Label" parent="DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = 23.0
+offset_right = 46.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 52
+text = "Game Over."
+
+[node name="DeathMessage" type="Label" parent="DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.5
+offset_top = 70.0
+offset_right = 215.5
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+text = "You got hit by a freaking asteroid. Everyone is smushed."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Warning" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Warning"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.92, 2.7599988)
+color = Color(0.24115619, 0.24115601, 0.24115604, 0.7137255)
+
+[node name="WarningText" type="Label" parent="Warning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = 23.0
+offset_right = 46.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 52
+text = "Random Event Incoming"
+
+[node name="WarningMessage" type="Label" parent="Warning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.5
+offset_top = 70.0
+offset_right = 215.5
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+text = "Asteroids Incoming."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Winning" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Winning"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.92, 2.7599988)
+color = Color(0.24115619, 0.24115601, 0.24115604, 0.7137255)
+
+[node name="WinningText" type="Label" parent="Winning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = 23.0
+offset_right = 46.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 52
+text = "You've landed on an inhabital plannet!"
+
+[node name="WinningMessage" type="Label" parent="Winning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.5
+offset_top = 70.0
+offset_right = 215.5
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 22
+text = "You Win. Good Job!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeLeft" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -388.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/outline_size = 8
+text = "Time before landing on inhabital plannet: 19m 25s"

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbuii3t752xmh"]
+
+[ext_resource type="Script" uid="uid://13ptniwwf6l7" path="res://scripts/oxygen_interface.gd" id="1_4hj55"]
+[ext_resource type="Texture2D" uid="uid://d2nlunawaf0nm" path="res://assets/Untitled_Artwork.png" id="2_4hj55"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hj55"]
+radius = 121.004135
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fuxi"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fenv"]
+bg_color = Color(0.19425881, 0.43040827, 0.7286996, 1)
+
+[node name="OxygenInterface" type="Node2D"]
+scale = Vector2(6.4910636, 6.4910636)
+script = ExtResource("1_4hj55")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(0.04531044, 0.04531044)
+texture = ExtResource("2_4hj55")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.1024236, 0.1024236)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(19, -234)
+shape = SubResource("CircleShape2D_4hj55")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = 1.0
+offset_right = 148.21399
+offset_bottom = 24.0
+scale = Vector2(0.1024236, 0.1024236)
+theme_override_styles/background = SubResource("StyleBoxFlat_3fuxi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8fenv")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_detection_area_area_exited"]

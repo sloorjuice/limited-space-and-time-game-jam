@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1a6oumvt5sw4"]
+
+[ext_resource type="Script" uid="uid://gbw1y7grmh5v" path="res://scripts/back_button.gd" id="1_mki26"]
+[ext_resource type="Texture2D" uid="uid://voisf1c7aksk" path="res://assets/Untitled_Artwork 8.png" id="2_tkpbl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cksmw"]
+size = Vector2(56, 31)
+
+[node name="BackButton" type="Node2D"]
+script = ExtResource("1_mki26")
+
+[node name="Label" type="TextureRect" parent="."]
+offset_left = -2.0
+offset_top = -18.0
+offset_right = 2046.0
+offset_bottom = 2030.0
+scale = Vector2(0.039999843, 0.039999843)
+texture = ExtResource("2_tkpbl")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 0.99999994)
+scale = Vector2(1.4, 1.2800002)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(28, 14.5)
+shape = SubResource("RectangleShape2D_cksmw")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

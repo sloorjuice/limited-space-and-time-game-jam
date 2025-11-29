@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://xtcsfxp8mm3p"]
+
+[ext_resource type="Texture2D" uid="uid://cjltth8kxu0hm" path="res://assets/IMG_2399.PNG" id="1_drfli"]
+[ext_resource type="Script" uid="uid://cenyamra37m7k" path="res://scripts/oxygen_can.gd" id="1_emfqk"]
+[ext_resource type="Texture2D" uid="uid://8y166c6lc2f" path="res://assets/IMG_2398.PNG" id="2_emfqk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fvn2j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_drfli")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_emfqk")
+}],
+"loop": true,
+"name": &"pouring",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_emfqk"]
+size = Vector2(30.292185, 42.913925)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emfqk"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvn2j"]
+bg_color = Color(0.1925987, 0.70277303, 0.4625399, 1)
+
+[node name="OxygenCan" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_emfqk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.040000014, 0.040000014)
+sprite_frames = SubResource("SpriteFrames_fvn2j")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.4207242, 2.5243478)
+shape = SubResource("RectangleShape2D_emfqk")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -14.725366
+offset_top = 24.402037
+offset_right = 13.883922
+offset_bottom = 51.40204
+scale = Vector2(1, 0.20903641)
+theme_override_styles/background = SubResource("StyleBoxFlat_emfqk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fvn2j")
+show_percentage = false
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
