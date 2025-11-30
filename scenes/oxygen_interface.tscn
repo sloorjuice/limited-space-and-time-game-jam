@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbuii3t752xmh"]
+[gd_scene load_steps=21 format=3 uid="uid://cbuii3t752xmh"]
 
 [ext_resource type="Script" uid="uid://13ptniwwf6l7" path="res://scripts/oxygen_interface.gd" id="1_4hj55"]
 [ext_resource type="Texture2D" uid="uid://d2nlunawaf0nm" path="res://assets/Untitled_Artwork.png" id="2_4hj55"]
@@ -12,6 +12,69 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fenv"]
 bg_color = Color(0.19425881, 0.43040827, 0.7286996, 1)
+
+[sub_resource type="Gradient" id="Gradient_3fuxi"]
+offsets = PackedFloat32Array(0, 0.6549296)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8fenv"]
+gradient = SubResource("Gradient_3fuxi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_8fenv"]
+offsets = PackedFloat32Array(0, 0.69014084)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lvt13"]
+gradient = SubResource("Gradient_8fenv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_lvt13"]
+offsets = PackedFloat32Array(0, 0.6830986)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tw5m4"]
+gradient = SubResource("Gradient_lvt13")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_tw5m4"]
+offsets = PackedFloat32Array(0, 0.68485916)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y0ls8"]
+gradient = SubResource("Gradient_tw5m4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_y0ls8"]
+offsets = PackedFloat32Array(0, 0.7112676)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_woj46"]
+gradient = SubResource("Gradient_y0ls8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_woj46"]
+offsets = PackedFloat32Array(0, 0.6760563)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_etn3f"]
+gradient = SubResource("Gradient_woj46")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_etn3f"]
+offsets = PackedFloat32Array(0, 0.7605634)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mwyot"]
+gradient = SubResource("Gradient_etn3f")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [node name="OxygenInterface" type="Node2D"]
 scale = Vector2(6.4910636, 6.4910636)
@@ -43,6 +106,47 @@ metadata/_edit_use_anchors_ = true
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_3fuxi")
 volume_db = -6.156
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(10.321883, 30.041304)
+scale = Vector2(0.26668382, 0.26668382)
+color = Color(0.14117648, 0.105882354, 1, 1)
+texture = SubResource("GradientTexture2D_8fenv")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(0.15405796, 30.657536)
+scale = Vector2(0.18041158, 0.18041158)
+color = Color(1, 0.61960787, 0.101960786, 1)
+texture = SubResource("GradientTexture2D_lvt13")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(-11.246231, 29.733187)
+scale = Vector2(0.26052177, 0.26052177)
+color = Color(1, 1, 0.10980392, 1)
+texture = SubResource("GradientTexture2D_tw5m4")
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(10.938115, 9.85971)
+scale = Vector2(0.21738571, 0.21738571)
+color = Color(0.2509804, 1, 0.101960786, 1)
+texture = SubResource("GradientTexture2D_y0ls8")
+
+[node name="PointLight2D5" type="PointLight2D" parent="."]
+position = Vector2(0.61623186, 11.862463)
+scale = Vector2(0.18041158, 0.18041158)
+color = Color(0.11764706, 1, 1, 1)
+texture = SubResource("GradientTexture2D_woj46")
+
+[node name="PointLight2D6" type="PointLight2D" parent="."]
+position = Vector2(-8.781304, 12.016521)
+scale = Vector2(0.24819696, 0.24819696)
+color = Color(1, 0.105882354, 0.101960786, 1)
+texture = SubResource("GradientTexture2D_etn3f")
+
+[node name="PointLight2D7" type="PointLight2D" parent="."]
+position = Vector2(0, 1.3865217)
+scale = Vector2(0.3899309, 0.3899309)
+texture = SubResource("GradientTexture2D_mwyot")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_detection_area_area_exited"]

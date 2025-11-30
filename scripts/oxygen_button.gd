@@ -4,6 +4,7 @@ var in_area = false
 var original_scale: Vector2  # Store the original scale
 @onready var progress_bar = $ProgressBar  # Adjust path to your ProgressBar node
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+var is_switching_scene = false  # Prevent double-clicks
 
 func _ready() -> void:
 	# Store original scale
@@ -22,10 +23,15 @@ func _input(event: InputEvent) -> void:
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and event.pressed \
 	and in_area \
-	and GameManager.can_use_oxygen():
+	and GameManager.can_use_oxygen() \
+	and not is_switching_scene:
+		is_switching_scene = true
 		audio_stream_player_2d.play()
 		await audio_stream_player_2d.finished
-		get_tree().change_scene_to_file("res://scenes/oxygen_area.tscn")
+		
+		# Check if tree still exists before changing scene
+		if get_tree():
+			get_tree().change_scene_to_file("res://scenes/oxygen_area.tscn")
 
 func _on_cooldown_changed(time_left: float) -> void:
 	progress_bar.value = time_left

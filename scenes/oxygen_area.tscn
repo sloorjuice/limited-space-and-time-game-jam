@@ -63,7 +63,7 @@ position = Vector2(912, 491.00003)
 position = Vector2(1032, 539)
 
 [node name="BackButton" parent="." instance=ExtResource("4_3qrkx")]
-position = Vector2(32, 72)
+position = Vector2(23, 85)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(586, 530)

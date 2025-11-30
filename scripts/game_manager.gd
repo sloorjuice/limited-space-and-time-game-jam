@@ -3,10 +3,12 @@ extends Node
 var oxygen = 50.0
 var food_supply = 50.0
 
+var oxygen_count = 0
+
 # Cooldown tracking
 var shimpment_cooldown = 0.0
 var oxygen_cooldown = 0.0
-const COOLDOWN_TIME = 8.0
+const COOLDOWN_TIME = 10.0
 
 # Depletion pause flag
 var depletion_paused = false
@@ -37,6 +39,9 @@ var current_warning_message = ""
 var death_audio_player: AudioStreamPlayer
 var warning_audio_player: AudioStreamPlayer
 var bg_music_player: AudioStreamPlayer
+
+# Track if audio is initialized
+var audio_initialized = false
 
 enum EventType {
 	DEFEND_ASTEROIDS,
@@ -73,32 +78,44 @@ func _ready() -> void:
 	set_process(true)
 	schedule_next_event()
 	schedule_next_food_depletion()
+	_initialize_audio()
+
+func _initialize_audio() -> void:
+	if audio_initialized:
+		return
 	
 	# Setup audio players
 	death_audio_player = AudioStreamPlayer.new()
 	death_audio_player.stream = load(sound_effects["death"])
-	death_audio_player.process_mode = Node.PROCESS_MODE_ALWAYS  # Play even when paused
+	death_audio_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(death_audio_player)
 	
 	warning_audio_player = AudioStreamPlayer.new()
 	warning_audio_player.stream = load(sound_effects["warning"])
-	warning_audio_player.volume_db = -30.0  # Reduce volume (negative values = quieter)
+	warning_audio_player.volume_db = -30.0
 	add_child(warning_audio_player)
 	
 	# Setup background music
 	bg_music_player = AudioStreamPlayer.new()
 	bg_music_player.stream = load(sound_effects["BGMusic"])
-	bg_music_player.volume_db = -9.0  # Adjust to your preference
+	bg_music_player.volume_db = -9.0
 	bg_music_player.autoplay = true
 	add_child(bg_music_player)
 	bg_music_player.finished.connect(_on_bg_music_finished)
 	bg_music_player.play()
+	
+	audio_initialized = true
 
 func _on_bg_music_finished() -> void:
 	# Loop the background music
-	bg_music_player.play()
+	if bg_music_player and bg_music_player.stream:
+		bg_music_player.play()
 
 func _process(delta: float) -> void:
+	# Ensure audio is initialized
+	if not audio_initialized:
+		_initialize_audio()
+	
 	# Survival timer (always counting)
 	survival_time += delta
 	var time_remaining = WIN_TIME - survival_time
@@ -155,15 +172,16 @@ func trigger_game_over(death_type: String) -> void:
 	set_process(false)
 	
 	# Stop warning sound if playing
-	if warning_audio_player.playing:
+	if warning_audio_player and warning_audio_player.playing:
 		warning_audio_player.stop()
 	
 	# Stop background music
-	if bg_music_player.playing:
+	if bg_music_player and bg_music_player.playing:
 		bg_music_player.stop()
 	
 	# Play death sound
-	death_audio_player.play()
+	if death_audio_player:
+		death_audio_player.play()
 	
 	var message = death_messages.get(death_type, "Game Over!")
 	game_over.emit(message)
@@ -173,7 +191,7 @@ func trigger_win() -> void:
 	set_process(false)
 	
 	# Stop background music on win
-	if bg_music_player.playing:
+	if bg_music_player and bg_music_player.playing:
 		bg_music_player.stop()
 	
 	print("YOU WIN! Survived 20 minutes!")
@@ -207,7 +225,8 @@ func start_event_warning() -> void:
 	print("Warning: ", current_warning_message)
 	
 	# Play warning sound
-	warning_audio_player.play()
+	if warning_audio_player:
+		warning_audio_player.play()
 	
 	warning_started.emit(current_warning_message)
 
@@ -215,7 +234,7 @@ func execute_random_event() -> void:
 	print("Random event triggered: ", pending_event)
 	
 	# Stop warning sound
-	if warning_audio_player.playing:
+	if warning_audio_player and warning_audio_player.playing:
 		warning_audio_player.stop()
 	
 	random_event_triggered.emit(pending_event)

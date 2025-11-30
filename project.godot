@@ -13,7 +13,7 @@ config_version=5
 config/name="Limited Space and Time game jam"
 run/main_scene="uid://blb1vt7vc3vwn"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://c8g6vci75bh8k"
 
 [autoload]
 
@@ -23,3 +23,4 @@ GameManager="*res://scripts/game_manager.gd"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+mouse_cursor/custom_image="uid://duihe15runc7e"
