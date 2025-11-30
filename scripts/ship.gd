@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 300.0
+const SPEED = 200.0
 
 # How much padding from the top/bottom of the screen (optional, set to 0 if you want exact edges)
 const SCREEN_PADDING = 70

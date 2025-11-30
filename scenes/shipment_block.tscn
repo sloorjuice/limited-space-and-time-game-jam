@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckwpm6x5esjpa"]
+[gd_scene load_steps=6 format=3 uid="uid://ckwpm6x5esjpa"]
 
 [ext_resource type="Script" uid="uid://crje3w2fmbr7b" path="res://scripts/shipment_block.gd" id="1_ryuq5"]
+[ext_resource type="AudioStream" uid="uid://b88jy08483rmh" path="res://assets/construction-site-35091.mp3" id="2_o0fov"]
+[ext_resource type="AudioStream" uid="uid://dr7nb0f2g6wck" path="res://assets/Forklift_ loading and unloading-[AudioTrimmer.com].mp3" id="3_a5j0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0fov"]
 size = Vector2(123, 123)
@@ -23,7 +25,7 @@ offset_right = 61.5
 offset_bottom = 61.5
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.1728327, 0.17283267, 0.17283267, 1)
+color = Color(0.630787, 0.562381, 0.60822195, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -35,3 +37,10 @@ debug_color = Color(0, 0.6, 0.69803923, 0.11372549)
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_ryuq5")
 debug_color = Color(0.8920692, 0.252836, 0.5187874, 0.41960785)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_o0fov")
+volume_db = -3.671
+
+[node name="SFX_Finished" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_a5j0v")

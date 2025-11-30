@@ -1,9 +1,14 @@
 extends Node2D
 
 var in_area = false
+var original_scale: Vector2  # Store the original scale
 @onready var progress_bar = $ProgressBar  # Adjust path to your ProgressBar node
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready() -> void:
+	# Store original scale
+	original_scale = scale
+	
 	# Connect to the appropriate cooldown signal
 	GameManager.oxygen_cooldown_changed.connect(_on_cooldown_changed)
 	
@@ -18,6 +23,8 @@ func _input(event: InputEvent) -> void:
 	and event.pressed \
 	and in_area \
 	and GameManager.can_use_oxygen():
+		audio_stream_player_2d.play()
+		await audio_stream_player_2d.finished
 		get_tree().change_scene_to_file("res://scenes/oxygen_area.tscn")
 
 func _on_cooldown_changed(time_left: float) -> void:
@@ -33,6 +40,8 @@ func _on_cooldown_changed(time_left: float) -> void:
 
 func _on_area_2d_mouse_entered() -> void:
 	in_area = true
+	scale = original_scale * 1.1  # 10% bigger
 
 func _on_area_2d_mouse_exited() -> void:
 	in_area = false
+	scale = original_scale  # Back to original

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv66krjfnp5k6"]
+[gd_scene load_steps=5 format=3 uid="uid://bv66krjfnp5k6"]
 
 [ext_resource type="Script" uid="uid://be8yqw7vaimw1" path="res://scripts/oxygen_button.gd" id="1_sgtgu"]
 [ext_resource type="Texture2D" uid="uid://d2nlunawaf0nm" path="res://assets/Untitled_Artwork.png" id="2_sgtgu"]
+[ext_resource type="AudioStream" uid="uid://csmj551tn35od" path="res://assets/opening-door-411632 (mp3cut.net).mp3" id="3_q5lao"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cksmw"]
 size = Vector2(174, 194)
@@ -26,6 +27,11 @@ offset_top = 128.0
 offset_right = 117.0
 offset_bottom = 155.0
 show_percentage = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 1)
+stream = ExtResource("3_q5lao")
+volume_db = -5.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

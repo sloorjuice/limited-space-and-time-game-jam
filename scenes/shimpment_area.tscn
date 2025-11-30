@@ -1,18 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bo4metyqj783d"]
+[gd_scene load_steps=18 format=3 uid="uid://bo4metyqj783d"]
 
+[ext_resource type="Texture2D" uid="uid://d17c7eb5v2uj4" path="res://assets/Untitled_Artwork 13.png" id="1_bw40f"]
 [ext_resource type="PackedScene" uid="uid://ckwpm6x5esjpa" path="res://scenes/shipment_block.tscn" id="1_gw266"]
+[ext_resource type="Texture2D" uid="uid://dsb0yju8v0hs4" path="res://assets/Untitled_Artwork 19.png" id="1_ykjpc"]
 [ext_resource type="Script" uid="uid://gyqcmra7qhch" path="res://scenes/dock.gd" id="2_x0nqh"]
 [ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="3_yl6ga"]
 [ext_resource type="PackedScene" uid="uid://d1a6oumvt5sw4" path="res://scenes/back_button.tscn" id="4_7ai7p"]
+[ext_resource type="Texture2D" uid="uid://b5kno4vbthex8" path="res://assets/Untitled_Artwork 23.png" id="7_of6ea"]
+[ext_resource type="Texture2D" uid="uid://df0ay2iyuf4h7" path="res://assets/Untitled_Artwork 22.png" id="8_1sdno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngpfe"]
 size = Vector2(39.9861, 43.659687)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0nqh"]
 size = Vector2(37.209442, 35.79841)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ai7p"]
-size = Vector2(38.953674, 39.463326)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gw266"]
 size = Vector2(19.767494, 26.177994)
@@ -23,20 +24,69 @@ size = Vector2(38.838676, 31.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ykjpc"]
 size = Vector2(388, 20)
 
+[sub_resource type="Gradient" id="Gradient_7ai7p"]
+offsets = PackedFloat32Array(0, 0.8943662)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ykjpc"]
+gradient = SubResource("Gradient_7ai7p")
+fill = 1
+
+[sub_resource type="Gradient" id="Gradient_ykjpc"]
+offsets = PackedFloat32Array(0.058098592, 0.9242958)
+colors = PackedColorArray(0.8132577, 0.81325775, 0.8132574, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bw40f"]
+gradient = SubResource("Gradient_ykjpc")
+fill = 1
+fill_from = Vector2(0.8995727, 0.5106838)
+
 [node name="ShimpmentArea" type="Node2D"]
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 1384.0
+offset_top = -1.0
+offset_right = 3098.0
+offset_bottom = 4095.0
+rotation = 1.5707964
+scale = Vector2(0.43999755, 0.43999755)
+texture = ExtResource("1_bw40f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -399.0
+offset_right = 3697.0
+offset_bottom = 1714.0
+scale = Vector2(0.35999864, 0.35999864)
+texture = ExtResource("1_ykjpc")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+offset_left = 91.00001
+offset_top = 90.0
+offset_right = 2139.0
+offset_bottom = 2138.0
+scale = Vector2(0.11999816, 0.11999816)
+texture = ExtResource("7_of6ea")
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+offset_left = 680.0
+offset_top = 19.0
+offset_right = 2728.0
+offset_bottom = 2067.0
+scale = Vector2(0.11999816, 0.11999816)
+texture = ExtResource("8_1sdno")
 
 [node name="ShipmentBlock" parent="." instance=ExtResource("1_gw266")]
 position = Vector2(989, 540)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, 611)
+position = Vector2(-72, 611)
 scale = Vector2(28.759995, 1)
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(1, 1.4799951)
-color = Color(0.08235294, 0.18431373, 0.27450982, 1)
+color = Color(0.33410427, 0.19250199, 0.28786287, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(19.99305, 18.5)
@@ -51,28 +101,12 @@ offset_left = -14.534938
 offset_right = 25.465061
 offset_bottom = 40.0
 scale = Vector2(1.5116302, 1)
-color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+color = Color(0.33410427, 0.19250199, 0.28786287, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(21.51171, 18.39005)
 scale = Vector2(1, 1.0000007)
 shape = SubResource("RectangleShape2D_x0nqh")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(1084, 611)
-scale = Vector2(1.7199936, -15.280001)
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
-offset_top = -0.013089805
-offset_right = 40.0
-offset_bottom = 39.98691
-scale = Vector2(1.1860486, 1)
-color = Color(0.07664717, 0.1807931, 0.27442154, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(18.895447, 19.666235)
-scale = Vector2(1, 1.0000007)
-shape = SubResource("RectangleShape2D_7ai7p")
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="."]
 position = Vector2(471, 620)
@@ -82,7 +116,7 @@ scale = Vector2(1.7199936, -15.280001)
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.49696627, 0.6552009)
-color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+color = Color(0.33410427, 0.19250199, 0.28786287, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
 position = Vector2(9.883759, 13.088997)
@@ -90,7 +124,7 @@ scale = Vector2(1.0023862, 1.0000007)
 shape = SubResource("RectangleShape2D_gw266")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(-72, 2)
 scale = Vector2(28.759995, 1)
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D4"]
@@ -99,7 +133,7 @@ offset_top = -10.0
 offset_right = 39.930458
 offset_bottom = 30.0
 scale = Vector2(1, 1.9200003)
-color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+color = Color(0.33410427, 0.19250199, 0.28786287, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 position = Vector2(20.392914, 24.25)
@@ -136,9 +170,21 @@ scale = Vector2(1.7199936, -15.280001)
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.49696627, 0.6552009)
-color = Color(0.07664717, 0.1807931, 0.27442154, 1)
+color = Color(0.33410427, 0.19250199, 0.28786287, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
 position = Vector2(9.883759, 13.088997)
 scale = Vector2(1.0023862, 1.0000007)
 shape = SubResource("RectangleShape2D_gw266")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(372.00003, 359.00003)
+scale = Vector2(9.199999, 9.199999)
+color = Color(0.827451, 0.84313726, 0.22352941, 1)
+texture = SubResource("GradientTexture2D_ykjpc")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(808, 377)
+scale = Vector2(19.68, 19.68)
+color = Color(0.6645101, 0.66451, 0.66451, 1)
+texture = SubResource("GradientTexture2D_bw40f")

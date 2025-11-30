@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dr7nb0f2g6wck"
+path="res://.godot/imported/Forklift_ loading and unloading-[AudioTrimmer.com].mp3-6e5cfad61549f77978aec75d2e1c7e60.mp3str"
+
+[deps]
+
+source_file="res://assets/Forklift_ loading and unloading-[AudioTrimmer.com].mp3"
+dest_files=["res://.godot/imported/Forklift_ loading and unloading-[AudioTrimmer.com].mp3-6e5cfad61549f77978aec75d2e1c7e60.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

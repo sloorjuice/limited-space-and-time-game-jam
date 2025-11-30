@@ -31,7 +31,12 @@ const WARNING_TIME = 3.0
 var pending_event: EventType = EventType.DEFEND_ASTEROIDS
 var warning_active = false
 var warning_timer = 0.0
-var current_warning_message = ""  # ADD THIS LINE
+var current_warning_message = ""
+
+# Audio players
+var death_audio_player: AudioStreamPlayer
+var warning_audio_player: AudioStreamPlayer
+var bg_music_player: AudioStreamPlayer
 
 enum EventType {
 	DEFEND_ASTEROIDS,
@@ -41,6 +46,12 @@ var death_messages = {
 	"food_death": "Everyone starved to death.",
 	"oxygen_death": "Everyone's head exploded. There was no Oxygen.",
 	"asteroid_death": "You got hit by a freaking asteroid. Everyone is smushed."
+}
+
+var sound_effects = {
+	"death": "res://assets/foghorn-313218.mp3",
+	"warning": "res://assets/siren-a-248662.mp3",
+	"BGMusic": "res://assets/space-vessel-background-noise-350616.mp3.download/space-vessel-background-noise-350616.mp3"
 }
 
 var event_warnings = {
@@ -62,6 +73,31 @@ func _ready() -> void:
 	set_process(true)
 	schedule_next_event()
 	schedule_next_food_depletion()
+	
+	# Setup audio players
+	death_audio_player = AudioStreamPlayer.new()
+	death_audio_player.stream = load(sound_effects["death"])
+	death_audio_player.process_mode = Node.PROCESS_MODE_ALWAYS  # Play even when paused
+	add_child(death_audio_player)
+	
+	warning_audio_player = AudioStreamPlayer.new()
+	warning_audio_player.stream = load(sound_effects["warning"])
+	warning_audio_player.volume_db = -30.0  # Reduce volume (negative values = quieter)
+	add_child(warning_audio_player)
+	
+	# Setup background music
+	bg_music_player = AudioStreamPlayer.new()
+	bg_music_player.stream = load(sound_effects["BGMusic"])
+	bg_music_player.volume_db = -9.0  # Adjust to your preference
+	bg_music_player.autoplay = true
+	add_child(bg_music_player)
+	bg_music_player.finished.connect(_on_bg_music_finished)
+	bg_music_player.play()
+
+func _on_bg_music_finished() -> void:
+	# Loop the background music
+	bg_music_player.play()
+
 func _process(delta: float) -> void:
 	# Survival timer (always counting)
 	survival_time += delta
@@ -114,9 +150,32 @@ func _process(delta: float) -> void:
 			start_event_warning()
 			schedule_next_event()
 
+func trigger_game_over(death_type: String) -> void:
+	pause_depletion()
+	set_process(false)
+	
+	# Stop warning sound if playing
+	if warning_audio_player.playing:
+		warning_audio_player.stop()
+	
+	# Stop background music
+	if bg_music_player.playing:
+		bg_music_player.stop()
+	
+	# Play death sound
+	death_audio_player.play()
+	
+	var message = death_messages.get(death_type, "Game Over!")
+	game_over.emit(message)
+
 func trigger_win() -> void:
 	pause_depletion()
 	set_process(false)
+	
+	# Stop background music on win
+	if bg_music_player.playing:
+		bg_music_player.stop()
+	
 	print("YOU WIN! Survived 20 minutes!")
 	player_won.emit()
 
@@ -135,12 +194,6 @@ func deplete_food() -> void:
 		if food_supply <= 0:
 			trigger_game_over("food_death")
 
-func trigger_game_over(death_type: String) -> void:
-	pause_depletion()
-	set_process(false)
-	var message = death_messages.get(death_type, "Game Over!")
-	game_over.emit(message)
-
 func schedule_next_event() -> void:
 	event_timer = 0.0
 	next_event_time = randf_range(MIN_EVENT_TIME, MAX_EVENT_TIME)
@@ -150,12 +203,21 @@ func start_event_warning() -> void:
 	pending_event = EventType.DEFEND_ASTEROIDS
 	warning_active = true
 	warning_timer = WARNING_TIME
-	current_warning_message = event_warnings.get(pending_event, "Random Event Incoming!")  # STORE IT
+	current_warning_message = event_warnings.get(pending_event, "Random Event Incoming!")
 	print("Warning: ", current_warning_message)
+	
+	# Play warning sound
+	warning_audio_player.play()
+	
 	warning_started.emit(current_warning_message)
 
 func execute_random_event() -> void:
 	print("Random event triggered: ", pending_event)
+	
+	# Stop warning sound
+	if warning_audio_player.playing:
+		warning_audio_player.stop()
+	
 	random_event_triggered.emit(pending_event)
 	get_tree().change_scene_to_file("res://scenes/defend_astroids.tscn")
 

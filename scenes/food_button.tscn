@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdflx7dhofidn"]
+[gd_scene load_steps=5 format=3 uid="uid://bdflx7dhofidn"]
 
 [ext_resource type="Script" uid="uid://7b724h8s21qm" path="res://scripts/food_button.gd" id="1_2sokk"]
 [ext_resource type="Texture2D" uid="uid://4klcay330s1o" path="res://assets/Untitled_Artwork 7.png" id="2_2sokk"]
+[ext_resource type="AudioStream" uid="uid://csmj551tn35od" path="res://assets/opening-door-411632 (mp3cut.net).mp3" id="3_fmer0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cksmw"]
 size = Vector2(174, 228.45161)
@@ -23,10 +24,14 @@ shape = SubResource("RectangleShape2D_cksmw")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -65.0
-offset_top = 128.0
+offset_top = -188.0
 offset_right = 117.0
-offset_bottom = 155.0
+offset_bottom = -161.0
 show_percentage = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fmer0")
+volume_db = -5.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1a6oumvt5sw4"]
+[gd_scene load_steps=5 format=3 uid="uid://d1a6oumvt5sw4"]
 
 [ext_resource type="Script" uid="uid://gbw1y7grmh5v" path="res://scripts/back_button.gd" id="1_mki26"]
 [ext_resource type="Texture2D" uid="uid://voisf1c7aksk" path="res://assets/Untitled_Artwork 8.png" id="2_tkpbl"]
+[ext_resource type="AudioStream" uid="uid://chwphw5ytoyo8" path="res://assets/woosh-230554-[AudioTrimmer.com].mp3" id="3_adig4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cksmw"]
 size = Vector2(56, 31)
@@ -24,6 +25,9 @@ scale = Vector2(1.4, 1.2800002)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(28, 14.5)
 shape = SubResource("RectangleShape2D_cksmw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_adig4")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

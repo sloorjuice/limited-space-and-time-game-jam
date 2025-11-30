@@ -4,6 +4,8 @@ var dragging := false
 var drag_offset := Vector2.ZERO
 var target_position := Vector2.ZERO
 @onready var detection_area: Area2D = $Area2D
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var sfx_finished: AudioStreamPlayer2D = $SFX_Finished
 
 func _ready() -> void:
 	print("=== SHIPMENT BLOCK READY ===")
@@ -26,12 +28,14 @@ func _input(event: InputEvent) -> void:
 			if rect.has_point(mouse_pos):
 				print("STARTED DRAGGING BLOCK AT: ", global_position)
 				dragging = true
+				audio_stream_player_2d.play()
 				freeze = false  # DON'T freeze - we need physics!
 				drag_offset = global_position - mouse_pos
 				get_viewport().set_input_as_handled()
 		else:
 			if dragging:
 				print("STOPPED DRAGGING")
+				audio_stream_player_2d.stop()
 				dragging = false
 				# Flick effect
 				var velocity = (get_global_mouse_position() - (global_position - drag_offset)) * 15
@@ -62,6 +66,8 @@ func _on_dock_area_entered(area: Area2D) -> void:
 	print("Area entered: ", area.name, " Groups: ", area.get_groups())
 	if area.is_in_group("dock"):
 		print("DOCK HIT! Adding food and destroying block")
+		sfx_finished.play()
+		await sfx_finished.finished
 		GameManager.food_supply = min(GameManager.food_supply + 5, 50)
 		GameManager.food_supply_changed.emit(GameManager.food_supply)
 		queue_free()

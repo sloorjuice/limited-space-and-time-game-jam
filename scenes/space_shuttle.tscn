@@ -1,15 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://blb1vt7vc3vwn"]
+[gd_scene load_steps=10 format=3 uid="uid://blb1vt7vc3vwn"]
 
+[ext_resource type="Texture2D" uid="uid://d17c7eb5v2uj4" path="res://assets/Untitled_Artwork 13.png" id="1_e30y6"]
 [ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="1_wrsgj"]
+[ext_resource type="Texture2D" uid="uid://dvehuih66tge6" path="res://assets/Untitled_Artwork 15.png" id="2_1mfsi"]
 [ext_resource type="PackedScene" uid="uid://bv66krjfnp5k6" path="res://scenes/oxygen_button.tscn" id="2_7afxs"]
+[ext_resource type="Texture2D" uid="uid://b50qeysgd1f6p" path="res://assets/Untitled_Artwork 21.png" id="2_e30y6"]
 [ext_resource type="PackedScene" uid="uid://bdflx7dhofidn" path="res://scenes/food_button.tscn" id="3_81isq"]
+[ext_resource type="Texture2D" uid="uid://dm6ybg0h5pbes" path="res://assets/Untitled_Artwork 14.png" id="5_mlwuo"]
+
+[sub_resource type="Gradient" id="Gradient_1mfsi"]
+offsets = PackedFloat32Array(0.1056338, 1)
+colors = PackedColorArray(0.9137255, 0.8980392, 0.28235295, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mlwuo"]
+gradient = SubResource("Gradient_1mfsi")
+fill = 1
+fill_from = Vector2(0.5, 0)
 
 [node name="SpaceShuttle" type="Node2D"]
 
+[node name="TextureRect4" type="TextureRect" parent="."]
+texture_repeat = 3
+offset_left = -339.0
+offset_top = 467.00006
+offset_right = 1375.0
+offset_bottom = 4563.0
+rotation = -1.5707964
+scale = Vector2(0.40901756, 0.40901756)
+texture = ExtResource("1_e30y6")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = -210.0
+offset_right = 3886.0
+offset_bottom = 1714.0
+scale = Vector2(0.40000033, 0.40000033)
+texture = ExtResource("2_e30y6")
+
 [node name="Gui" parent="." instance=ExtResource("1_wrsgj")]
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 67.0
+offset_top = 14.000001
+offset_right = 2115.0
+offset_bottom = 2062.0
+scale = Vector2(0.16000243, 0.16000243)
+texture = ExtResource("5_mlwuo")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 537.0
+offset_top = 134.0
+offset_right = 2585.0
+offset_bottom = 2182.0
+rotation = 1.5707964
+scale = Vector2(0.31561574, 0.31561574)
+texture = ExtResource("2_1mfsi")
+
 [node name="OxygenButton" parent="." instance=ExtResource("2_7afxs")]
-position = Vector2(279, 314)
+position = Vector2(135, 368)
+scale = Vector2(1.28, 1.28)
 
 [node name="FoodButton" parent="." instance=ExtResource("3_81isq")]
-position = Vector2(726, 345)
+position = Vector2(723.99994, 458)
+scale = Vector2(1.6, 1.6)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1017, 730)
+scale = Vector2(19.68, 19.68)
+color = Color(0.827451, 0.84313726, 0.22352941, 1)
+texture = SubResource("GradientTexture2D_mlwuo")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(275, 718.00006)
+scale = Vector2(19.68, 19.68)
+color = Color(0.827451, 0.84313726, 0.22352941, 1)
+texture = SubResource("GradientTexture2D_mlwuo")

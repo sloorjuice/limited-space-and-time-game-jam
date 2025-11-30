@@ -1,11 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://fyico5r5r8fn"]
+[gd_scene load_steps=10 format=3 uid="uid://fyico5r5r8fn"]
 
+[ext_resource type="Texture2D" uid="uid://d17c7eb5v2uj4" path="res://assets/Untitled_Artwork 13.png" id="1_7ucu7"]
+[ext_resource type="Texture2D" uid="uid://ckj1drtsme1vk" path="res://assets/Untitled_Artwork 18.png" id="1_fne32"]
 [ext_resource type="PackedScene" uid="uid://cbuii3t752xmh" path="res://scenes/oxygen_interface.tscn" id="1_uooeq"]
 [ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="2_4ig78"]
 [ext_resource type="PackedScene" uid="uid://xtcsfxp8mm3p" path="res://scenes/oxygen_can.tscn" id="3_4ig78"]
+[ext_resource type="Texture2D" uid="uid://dvehuih66tge6" path="res://assets/Untitled_Artwork 15.png" id="3_yrgis"]
 [ext_resource type="PackedScene" uid="uid://d1a6oumvt5sw4" path="res://scenes/back_button.tscn" id="4_3qrkx"]
 
+[sub_resource type="Gradient" id="Gradient_1mfsi"]
+offsets = PackedFloat32Array(0.17957747, 1)
+colors = PackedColorArray(0.9137255, 0.8980392, 0.28235295, 1, 0.053157672, 0.051051497, 0.0019840638, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3qrkx"]
+gradient = SubResource("Gradient_1mfsi")
+fill = 1
+fill_from = Vector2(0.5, 0)
+
 [node name="OxygenArea" type="Node2D"]
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+texture_repeat = 3
+offset_left = -549.0
+offset_top = 516.0
+offset_right = 1165.0
+offset_bottom = 4612.0
+rotation = -1.5707964
+scale = Vector2(0.40901756, 0.40901756)
+texture = ExtResource("1_7ucu7")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = -836.0
+offset_top = -651.0
+offset_right = 3260.0
+offset_bottom = 1063.0
+scale = Vector2(1.08, 1.08)
+texture = ExtResource("1_fne32")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 1511.0
+offset_top = -529.0
+offset_right = 3559.0
+offset_bottom = 1519.0
+rotation = 1.5707964
+texture = ExtResource("3_yrgis")
 
 [node name="OxygenInterface" parent="." instance=ExtResource("1_uooeq")]
 position = Vector2(273, 346.00003)
@@ -13,16 +51,22 @@ position = Vector2(273, 346.00003)
 [node name="Gui" parent="." instance=ExtResource("2_4ig78")]
 
 [node name="OxygenCan2" parent="." instance=ExtResource("3_4ig78")]
-position = Vector2(796.00006, 352)
+position = Vector2(807, 549)
 
 [node name="OxygenCan" parent="." instance=ExtResource("3_4ig78")]
-position = Vector2(797, 172)
+position = Vector2(699, 499)
 
 [node name="OxygenCan3" parent="." instance=ExtResource("3_4ig78")]
-position = Vector2(903, 345)
+position = Vector2(912, 491.00003)
 
 [node name="OxygenCan4" parent="." instance=ExtResource("3_4ig78")]
-position = Vector2(900, 155)
+position = Vector2(1032, 539)
 
 [node name="BackButton" parent="." instance=ExtResource("4_3qrkx")]
 position = Vector2(32, 72)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(586, 530)
+scale = Vector2(19.68, 19.68)
+color = Color(0.827451, 0.84313726, 0.22352941, 1)
+texture = SubResource("GradientTexture2D_3qrkx")

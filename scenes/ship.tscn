@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuaau5md05tc6"]
+[gd_scene load_steps=13 format=3 uid="uid://cuaau5md05tc6"]
 
 [ext_resource type="Script" uid="uid://cxii5q7jtkrfh" path="res://scripts/ship.gd" id="1_2gnfn"]
 [ext_resource type="Texture2D" uid="uid://pihb6wef5wuy" path="res://assets/Untitled_Artwork 6.png" id="2_2gnfn"]
@@ -28,8 +28,26 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2gnfn"]
-radius = 28.0
-height = 142.0
+radius = 31.0
+height = 150.0
+
+[sub_resource type="Gradient" id="Gradient_7j21i"]
+offsets = PackedFloat32Array(0, 0.76760566)
+colors = PackedColorArray(0.56996334, 0.6475669, 0.8188687, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3m36u"]
+gradient = SubResource("Gradient_7j21i")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_3m36u"]
+colors = PackedColorArray(1, 0.6313726, 0.25490198, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8qiel"]
+gradient = SubResource("Gradient_3m36u")
+fill = 1
+fill_from = Vector2(1, 0.5)
+fill_to = Vector2(0, 0.5)
 
 [node name="Ship" type="Area2D"]
 script = ExtResource("1_2gnfn")
@@ -50,3 +68,13 @@ texture = ExtResource("2_2gnfn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_2gnfn")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(7.44, 7.44)
+texture = SubResource("GradientTexture2D_3m36u")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-142, 0)
+scale = Vector2(1.96, 1.96)
+color = Color(1, 0.62352943, 0.2509804, 1)
+texture = SubResource("GradientTexture2D_8qiel")

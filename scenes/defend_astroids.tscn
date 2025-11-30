@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcfgl2ti0dlq3"]
+[gd_scene load_steps=11 format=3 uid="uid://bcfgl2ti0dlq3"]
 
 [ext_resource type="Script" uid="uid://drm36r47kaije" path="res://scripts/defend_astroids.gd" id="1_034ic"]
 [ext_resource type="PackedScene" uid="uid://cuaau5md05tc6" path="res://scenes/ship.tscn" id="1_sv34s"]
 [ext_resource type="Script" uid="uid://ffm63tuupcxu" path="res://scripts/asteroid_spawner.gd" id="2_pnqu3"]
 [ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="4_pnuxm"]
+[ext_resource type="Script" uid="uid://dujmqvbytfx30" path="res://scripts/parallax_layer.gd" id="5_53n3n"]
+[ext_resource type="Texture2D" uid="uid://d17c7eb5v2uj4" path="res://assets/Untitled_Artwork 13.png" id="5_qu2hq"]
+[ext_resource type="AudioStream" uid="uid://dhkfpijatm8h4" path="res://assets/siren-a-248662.mp3" id="7_3j1x2"]
+[ext_resource type="AudioStream" uid="uid://c6a83g7f1hfhv" path="res://assets/deep-space-loop-401165.mp3" id="8_3j1x2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_034ic"]
 bg_color = Color(0, 0, 0, 1)
@@ -30,3 +34,48 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pnuxm")
 show_percentage = false
 
 [node name="Gui" parent="." instance=ExtResource("4_pnuxm")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1675, 0)
+script = ExtResource("5_53n3n")
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+texture_repeat = 3
+offset_top = 700.0
+offset_right = 1714.0
+offset_bottom = 4796.0
+rotation = -1.5707964
+scale = Vector2(0.40901756, 0.40901756)
+texture = ExtResource("5_qu2hq")
+
+[node name="BGAlarm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3j1x2")
+volume_db = -25.864
+autoplay = true
+bus = &"New Bus"
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_3j1x2")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -164.0
+offset_top = 25.0
+offset_right = 164.0
+offset_bottom = 83.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.21960784, 0.23529412, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Avoid Asteroids!"
+horizontal_alignment = 1
+vertical_alignment = 1
