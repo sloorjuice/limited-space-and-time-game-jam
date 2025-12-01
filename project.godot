@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Limited Space and Time game jam"
-run/main_scene="uid://blb1vt7vc3vwn"
+run/main_scene="uid://e43pqqit38uf"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://c8g6vci75bh8k"
 

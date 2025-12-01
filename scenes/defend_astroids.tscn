@@ -26,6 +26,7 @@ position = Vector2(1, 0)
 script = ExtResource("2_pnqu3")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 100
 offset_top = 622.0
 offset_right = 1154.0
 offset_bottom = 649.0

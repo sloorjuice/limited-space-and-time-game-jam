@@ -112,4 +112,4 @@ func shoot_laser():
 	get_parent().add_child(laser)
 
 func die():
-	GameManager.trigger_game_over("alien_death")
+	GameManager.fail_random_event(GameManager.EventType.DEFEND_ALIENS)

@@ -21,8 +21,7 @@ func _process(delta: float) -> void:
 		print("Time remaining: ", int(time_remaining))
 	
 	if time_remaining <= 0:
-		print("Mission complete! Returning to shuttle...")
-		# Mission complete, return to space shuttle
+		print("Mission complete! Player survived.")
 		return_to_shuttle()
 
 func return_to_shuttle() -> void:

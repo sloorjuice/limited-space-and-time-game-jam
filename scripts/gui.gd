@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var food_supply_bar: ProgressBar = $MarginContainer/HBoxContainer/Control2/FoodSupplyBar
 @onready var oxygen_bar: ProgressBar = $MarginContainer/HBoxContainer/Control/OxygenBar
+@onready var survivor_count_label: Label = $MarginContainer/HBoxContainer/SuvivorCountLabel
 @onready var death_screen: Control = $DeathScreen
 @onready var death_message: Label = $DeathScreen/DeathMessage
 @onready var warning: Control = $Warning
@@ -17,10 +18,12 @@ func _ready() -> void:
 	
 	oxygen_bar.value = GameManager.oxygen
 	food_supply_bar.value = GameManager.food_supply
+	survivor_count_label.text = "Survivors: " + str(GameManager.survivor_count)
 	
 	# Connect to signals
 	GameManager.oxygen_changed.connect(_on_oxygen_changed)
 	GameManager.food_supply_changed.connect(_on_food_supply_changed)
+	GameManager.survivor_count_changed.connect(_on_survivor_count_changed)
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.warning_started.connect(_on_warning_started)
 	GameManager.warning_ended.connect(_on_warning_ended)
@@ -51,6 +54,17 @@ func _on_oxygen_changed(new_value: float) -> void:
 
 func _on_food_supply_changed(new_value: float) -> void:
 	food_supply_bar.value = new_value
+
+func _on_survivor_count_changed(new_count: int) -> void:
+	survivor_count_label.text = "Survivors: " + str(new_count)
+	
+	# Add visual feedback for low survivor count
+	if new_count <= 10:
+		survivor_count_label.modulate = Color.RED
+	elif new_count <= 20:
+		survivor_count_label.modulate = Color.ORANGE
+	else:
+		survivor_count_label.modulate = Color.WHITE
 
 func _on_game_over(message: String) -> void:
 	death_message.text = message

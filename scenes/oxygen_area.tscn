@@ -70,3 +70,66 @@ position = Vector2(586, 530)
 scale = Vector2(19.68, 19.68)
 color = Color(0.827451, 0.84313726, 0.22352941, 1)
 texture = SubResource("GradientTexture2D_3qrkx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = 624.0
+offset_top = 5.999999
+offset_right = 664.0
+offset_bottom = 46.0
+scale = Vector2(12.759997, 2.8400002)
+color = Color(1, 1, 1, 0.1882353)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 60.0
+offset_right = 541.0
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.47234213, 0.3763518, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Fill up the Oxygenator"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 58.0
+offset_top = 59.0
+offset_right = 539.0
+offset_bottom = 140.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7756669, 0.51814365, 0.7091601, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 28
+text = "the Machines Funnel at the Top"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 65.0
+offset_top = 28.0
+offset_right = 546.0
+offset_bottom = 109.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7756669, 0.51814365, 0.7091601, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 28
+text = "Pickup and Hold the Cans over over"
+horizontal_alignment = 1
+vertical_alignment = 1

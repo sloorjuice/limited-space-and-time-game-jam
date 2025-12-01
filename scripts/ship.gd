@@ -37,4 +37,4 @@ func _physics_process(delta: float) -> void:
 
 
 func die():
-	GameManager.trigger_game_over("asteroid_death")
+	GameManager.fail_random_event(GameManager.EventType.DEFEND_ASTEROIDS)

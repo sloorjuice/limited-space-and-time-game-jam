@@ -28,6 +28,7 @@ scale = Vector2(0.8009032, 0.79910386)
 texture = ExtResource("1_lhft5")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 100
 offset_left = -337.0
 offset_top = 816.0
 offset_right = 806.1245

@@ -85,7 +85,7 @@ layout_mode = 2
 theme_override_constants/outline_size = 8
 text = "Food Supply"
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="SuvivorCountLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 text = "Survivors Count: 24"

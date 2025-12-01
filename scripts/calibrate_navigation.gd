@@ -94,7 +94,7 @@ func _on_planet_clicked() -> void:
 
 func _fail_mission() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	GameManager.trigger_game_over("navigation_failure")
+	GameManager.fail_random_event(GameManager.EventType.CALIBRATE_NAVIGATION)
 
 func _return_to_shuttle() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

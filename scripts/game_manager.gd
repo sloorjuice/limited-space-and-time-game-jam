@@ -5,14 +5,29 @@ var food_supply = 50.0
 
 var oxygen_count = 0
 
+# Survivor system
+var survivor_count = 20
+const INITIAL_SURVIVORS = 20
+const OXYGEN_DEATH_RATE = 3.0  # Survivors lost per second with no oxygen
+const FOOD_DEATH_RATE = 1.0  # Survivors lost per second with no food
+
+# Random event survivor costs
+const ASTEROID_SURVIVOR_COST = 15
+const ALIEN_SURVIVOR_COST = 15
+const NAVIGATION_SURVIVOR_COST = 15
+
 # Cooldown tracking
 var shimpment_cooldown = 0.0
 var oxygen_cooldown = 0.0
-const COOLDOWN_TIME = 10.0
+const COOLDOWN_TIME = 14.0
 
 # Depletion pause flag
 var depletion_paused = false
 var survival_paused = false
+
+# Grace period
+const GRACE_PERIOD = 5.0
+var grace_timer = GRACE_PERIOD
 
 # Food depletion system
 var food_timer = 0.0
@@ -27,8 +42,8 @@ var survival_time = 0.0
 
 # Random event system
 var event_timer = 0.0
-const MIN_EVENT_TIME = 25.0
-const MAX_EVENT_TIME = 55.0
+const MIN_EVENT_TIME = 25
+const MAX_EVENT_TIME = 55
 var next_event_time = 0.0
 const WARNING_TIME = 3.0
 var pending_event: EventType = EventType.DEFEND_ASTEROIDS
@@ -81,12 +96,14 @@ signal warning_started(warning_message: String)
 signal warning_ended()
 signal time_updated(time_left: float)
 signal player_won()
+signal survivor_count_changed(new_count: int)
 
 func _ready() -> void:
 	set_process(true)
 	schedule_next_event()
 	schedule_next_food_depletion()
 	_initialize_audio()
+	survivor_count_changed.emit(survivor_count)
 
 func _initialize_audio() -> void:
 	if audio_initialized:
@@ -124,6 +141,12 @@ func _process(delta: float) -> void:
 	if not audio_initialized:
 		_initialize_audio()
 	
+	# Grace period countdown
+	if grace_timer > 0:
+		grace_timer -= delta
+		if grace_timer <= 0:
+			print("Grace period ended - resource depletion starting")
+	
 	# Survival timer (always counting)
 	if not survival_paused:
 		survival_time += delta
@@ -135,16 +158,28 @@ func _process(delta: float) -> void:
 			trigger_win()
 			return
 	
-	# Resource depletion (only if not paused)
-	if not depletion_paused:
+	# Resource depletion (only if not paused AND grace period is over)
+	if not depletion_paused and grace_timer <= 0:
+		# Oxygen depletion
 		if oxygen > 0:
 			oxygen -= delta
 			oxygen = max(oxygen, 0)
 			oxygen_changed.emit(oxygen)
-			
-			if oxygen <= 0:
-				trigger_game_over("oxygen_death")
 		
+		# Survivor death from lack of resources
+		var death_rate = 0.0
+		
+		if oxygen <= 0:
+			death_rate += OXYGEN_DEATH_RATE
+		
+		if food_supply <= 0:
+			death_rate += FOOD_DEATH_RATE
+		
+		# Apply survivor deaths
+		if death_rate > 0:
+			kill_survivors(death_rate * delta)
+		
+		# Food depletion
 		food_timer += delta
 		if food_timer >= next_food_depletion:
 			deplete_food()
@@ -175,6 +210,29 @@ func _process(delta: float) -> void:
 		if event_timer >= next_event_time:
 			start_event_warning()
 			schedule_next_event()
+
+func kill_survivors(amount: float) -> void:
+	var survivors_to_kill = int(amount)
+	if amount - survivors_to_kill > randf():  # Handle fractional deaths probabilistically
+		survivors_to_kill += 1
+	
+	if survivors_to_kill > 0:
+		survivor_count = max(0, survivor_count - survivors_to_kill)
+		survivor_count_changed.emit(survivor_count)
+		
+		if survivor_count <= 0:
+			# Determine which death message to show
+			var death_type = "food_death"  # Default
+			
+			if oxygen <= 0 and food_supply <= 0:
+				# If both are depleted, oxygen takes precedence (faster death)
+				death_type = "oxygen_death"
+			elif oxygen <= 0:
+				death_type = "oxygen_death"
+			elif food_supply <= 0:
+				death_type = "food_death"
+			
+			trigger_game_over(death_type)
 
 func trigger_game_over(death_type: String) -> void:
 	pause_depletion()
@@ -217,9 +275,6 @@ func deplete_food() -> void:
 		food_supply = max(food_supply, 0)
 		food_supply_changed.emit(food_supply)
 		print("Food consumed! Remaining: ", food_supply)
-		
-		if food_supply <= 0:
-			trigger_game_over("food_death")
 
 func schedule_next_event() -> void:
 	event_timer = 0.0
@@ -250,16 +305,14 @@ func start_event_warning() -> void:
 	warning_started.emit(current_warning_message)
 
 func execute_random_event() -> void:
-	print("Random event triggered: ", pending_event)
+	print("Executing event: ", pending_event)
 	
-	# Stop warning sound
+	# Stop warning sound before loading the event scene
 	if warning_audio_player and warning_audio_player.playing:
 		warning_audio_player.stop()
 	
-	survival_paused = true
-	random_event_triggered.emit(pending_event)
+	pause_depletion()
 	
-	# Load appropriate scene based on event type
 	match pending_event:
 		EventType.DEFEND_ASTEROIDS:
 			get_tree().change_scene_to_file("res://scenes/defend_astroids.tscn")
@@ -267,13 +320,48 @@ func execute_random_event() -> void:
 			get_tree().change_scene_to_file("res://scenes/defend_aliens.tscn")
 		EventType.CALIBRATE_NAVIGATION:
 			get_tree().change_scene_to_file("res://scenes/calibrate_navigation.tscn")
+	
+	random_event_triggered.emit(pending_event)
+
+# New function to call when player fails an event
+func fail_random_event(event_type: EventType) -> void:
+	var survivors_killed = 0
+	match event_type:
+		EventType.DEFEND_ASTEROIDS:
+			survivors_killed = ASTEROID_SURVIVOR_COST
+		EventType.DEFEND_ALIENS:
+			survivors_killed = ALIEN_SURVIVOR_COST
+		EventType.CALIBRATE_NAVIGATION:
+			survivors_killed = NAVIGATION_SURVIVOR_COST
+	
+	survivor_count = max(0, survivor_count - survivors_killed)
+	survivor_count_changed.emit(survivor_count)
+	print("Event failed! Lost ", survivors_killed, " survivors. Remaining: ", survivor_count)
+	
+	# Check if all survivors are dead
+	if survivor_count <= 0:
+		var death_type = ""
+		match event_type:
+			EventType.DEFEND_ASTEROIDS:
+				death_type = "asteroid_death"
+			EventType.DEFEND_ALIENS:
+				death_type = "alien_death"
+			EventType.CALIBRATE_NAVIGATION:
+				death_type = "navigation_failure"
+		trigger_game_over(death_type)
+	else:
+		# Still have survivors - return to space shuttle
+		resume_depletion()
+		# Use call_deferred to avoid physics callback issues
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/space_shuttle.tscn")
 
 func pause_depletion() -> void:
 	depletion_paused = true
+	print("Resource depletion paused")
 
 func resume_depletion() -> void:
 	depletion_paused = false
-	survival_paused = false
+	print("Resource depletion resumed")
 
 func can_use_shimpment() -> bool:
 	return shimpment_cooldown <= 0
@@ -283,6 +371,8 @@ func can_use_oxygen() -> bool:
 
 func use_shimpment() -> void:
 	shimpment_cooldown = COOLDOWN_TIME
+	shimpment_cooldown_changed.emit(shimpment_cooldown)
 
 func use_oxygen() -> void:
 	oxygen_cooldown = COOLDOWN_TIME
+	oxygen_cooldown_changed.emit(oxygen_cooldown)

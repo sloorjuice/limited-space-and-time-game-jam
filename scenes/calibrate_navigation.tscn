@@ -62,6 +62,7 @@ offset_bottom = 2027.0
 [node name="Gui" parent="." instance=ExtResource("4_c1nhr")]
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 100
 offset_top = 622.0
 offset_right = 1154.0
 offset_bottom = 649.0
