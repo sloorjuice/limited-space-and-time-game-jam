@@ -12,6 +12,7 @@ const COOLDOWN_TIME = 10.0
 
 # Depletion pause flag
 var depletion_paused = false
+var survival_paused = false
 
 # Food depletion system
 var food_timer = 0.0
@@ -27,13 +28,14 @@ var survival_time = 0.0
 # Random event system
 var event_timer = 0.0
 const MIN_EVENT_TIME = 25.0
-const MAX_EVENT_TIME = 75.0
+const MAX_EVENT_TIME = 55.0
 var next_event_time = 0.0
 const WARNING_TIME = 3.0
 var pending_event: EventType = EventType.DEFEND_ASTEROIDS
 var warning_active = false
 var warning_timer = 0.0
 var current_warning_message = ""
+var last_event: EventType = EventType.DEFEND_ASTEROIDS  # Track last event
 
 # Audio players
 var death_audio_player: AudioStreamPlayer
@@ -45,12 +47,16 @@ var audio_initialized = false
 
 enum EventType {
 	DEFEND_ASTEROIDS,
+	DEFEND_ALIENS,
+	CALIBRATE_NAVIGATION,
 }
 
 var death_messages = {
 	"food_death": "Everyone starved to death.",
 	"oxygen_death": "Everyone's head exploded. There was no Oxygen.",
-	"asteroid_death": "You got hit by a freaking asteroid. Everyone is smushed."
+	"asteroid_death": "You got hit by a freaking asteroid. Everyone is smushed.",
+	"alien_death": "Aliens abducted and ate everyone. You lose.",
+	"navigation_failure": "Ship drifted off course into a black hole. Everyone is spaghettified."
 }
 
 var sound_effects = {
@@ -61,6 +67,8 @@ var sound_effects = {
 
 var event_warnings = {
 	EventType.DEFEND_ASTEROIDS: "Asteroids Incoming.",
+	EventType.DEFEND_ALIENS: "Alien Attack Imminent!",
+	EventType.CALIBRATE_NAVIGATION: "Navigation System Malfunction!",
 }
 
 signal oxygen_changed(new_value: float)
@@ -117,14 +125,15 @@ func _process(delta: float) -> void:
 		_initialize_audio()
 	
 	# Survival timer (always counting)
-	survival_time += delta
-	var time_remaining = WIN_TIME - survival_time
-	time_updated.emit(time_remaining)
-	
-	# Check for win condition
-	if survival_time >= WIN_TIME:
-		trigger_win()
-		return
+	if not survival_paused:
+		survival_time += delta
+		var time_remaining = WIN_TIME - survival_time
+		time_updated.emit(time_remaining)
+		
+		# Check for win condition
+		if survival_time >= WIN_TIME:
+			trigger_win()
+			return
 	
 	# Resource depletion (only if not paused)
 	if not depletion_paused:
@@ -218,7 +227,17 @@ func schedule_next_event() -> void:
 	print("Next event in: ", next_event_time, " seconds")
 
 func start_event_warning() -> void:
-	pending_event = EventType.DEFEND_ASTEROIDS
+	# Choose a different event than the last one
+	var available_events = [EventType.DEFEND_ASTEROIDS, EventType.DEFEND_ALIENS, EventType.CALIBRATE_NAVIGATION]
+	available_events.erase(last_event)  # Remove the last event from options
+	
+	# If we somehow have no options (shouldn't happen with 3 events), add them back
+	if available_events.is_empty():
+		available_events = [EventType.DEFEND_ASTEROIDS, EventType.DEFEND_ALIENS, EventType.CALIBRATE_NAVIGATION]
+	
+	pending_event = available_events[randi() % available_events.size()]
+	last_event = pending_event  # Update last event
+	
 	warning_active = true
 	warning_timer = WARNING_TIME
 	current_warning_message = event_warnings.get(pending_event, "Random Event Incoming!")
@@ -237,14 +256,24 @@ func execute_random_event() -> void:
 	if warning_audio_player and warning_audio_player.playing:
 		warning_audio_player.stop()
 	
+	survival_paused = true
 	random_event_triggered.emit(pending_event)
-	get_tree().change_scene_to_file("res://scenes/defend_astroids.tscn")
+	
+	# Load appropriate scene based on event type
+	match pending_event:
+		EventType.DEFEND_ASTEROIDS:
+			get_tree().change_scene_to_file("res://scenes/defend_astroids.tscn")
+		EventType.DEFEND_ALIENS:
+			get_tree().change_scene_to_file("res://scenes/defend_aliens.tscn")
+		EventType.CALIBRATE_NAVIGATION:
+			get_tree().change_scene_to_file("res://scenes/calibrate_navigation.tscn")
 
 func pause_depletion() -> void:
 	depletion_paused = true
 
 func resume_depletion() -> void:
 	depletion_paused = false
+	survival_paused = false
 
 func can_use_shimpment() -> bool:
 	return shimpment_cooldown <= 0

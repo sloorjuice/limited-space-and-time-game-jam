@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dita2duqyo0"]
+
+[ext_resource type="Script" uid="uid://btqes76xdp8f6" path="res://scripts/lazer.gd" id="1_ojbhb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu2pj"]
+size = Vector2(102, 11)
+
+[node name="lazer" type="Area2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_ojbhb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 102.0
+offset_bottom = 11.0
+color = Color(0.627451, 0, 1, 0.29803923)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(51, 5.5)
+shape = SubResource("RectangleShape2D_eu2pj")

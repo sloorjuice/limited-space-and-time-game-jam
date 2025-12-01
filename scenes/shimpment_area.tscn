@@ -160,7 +160,7 @@ debug_color = Color(0.95123166, 0.16292608, 0.39000228, 0.41960785)
 [node name="Gui" parent="." instance=ExtResource("3_yl6ga")]
 
 [node name="BackButton" parent="." instance=ExtResource("4_7ai7p")]
-position = Vector2(74, 79)
+position = Vector2(74, 106)
 
 [node name="StaticBody2D6" type="StaticBody2D" parent="."]
 position = Vector2(649, 344)

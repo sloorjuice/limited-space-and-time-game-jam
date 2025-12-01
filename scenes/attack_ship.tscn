@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://d334e4fssiptw"]
+
+[ext_resource type="Texture2D" uid="uid://cyt8mk84a3pvk" path="res://assets/Untitled_Artwork 9.png" id="1_4cyhn"]
+[ext_resource type="Script" uid="uid://cbvigokde6iyu" path="res://scenes/attack_ship.gd" id="1_84a1r"]
+[ext_resource type="Texture2D" uid="uid://dtjtac5urjpm6" path="res://assets/Untitled_Artwork 10.png" id="2_84a1r"]
+[ext_resource type="Texture2D" uid="uid://fdsg4iymwsyu" path="res://assets/Untitled_Artwork 11.png" id="3_7kld4"]
+[ext_resource type="Texture2D" uid="uid://casujc7ma2wyc" path="res://assets/Untitled_Artwork 12.png" id="4_ttoxe"]
+[ext_resource type="Texture2D" uid="uid://pihb6wef5wuy" path="res://assets/Untitled_Artwork 6.png" id="5_o0dpn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_26tls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4cyhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_84a1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7kld4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ttoxe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jwmno"]
+radius = 31.0
+height = 150.0
+
+[sub_resource type="Gradient" id="Gradient_7j21i"]
+offsets = PackedFloat32Array(0, 0.76760566)
+colors = PackedColorArray(0.56996334, 0.6475669, 0.8188687, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8x1tr"]
+gradient = SubResource("Gradient_7j21i")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_3m36u"]
+colors = PackedColorArray(1, 0.6313726, 0.25490198, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d7iot"]
+gradient = SubResource("Gradient_3m36u")
+fill = 1
+fill_from = Vector2(1, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[node name="AttackShip" type="Area2D"]
+collision_mask = 0
+script = ExtResource("1_84a1r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-101, -2.8776994e-13)
+rotation = -1.5707964
+scale = Vector2(0.022, 0.022)
+sprite_frames = SubResource("SpriteFrames_26tls")
+autoplay = "default"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9, -1.9073486e-06)
+rotation = 1.5707964
+scale = Vector2(0.097128384, 0.097128384)
+texture = ExtResource("5_o0dpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jwmno")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(7.44, 7.44)
+texture = SubResource("GradientTexture2D_8x1tr")
+
+[node name="FireLight" type="PointLight2D" parent="."]
+position = Vector2(-104.000015, 0)
+scale = Vector2(0.72000253, 0.72000253)
+color = Color(1, 0.62352943, 0.2509804, 1)
+texture = SubResource("GradientTexture2D_d7iot")

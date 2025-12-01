@@ -18,7 +18,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	# Get vertical input only (ui_up = up arrow or W, ui_down = down arrow or S)
-	var vertical_direction := Input.get_axis("ui_up", "ui_down")
+	var vertical_direction := Input.get_axis("move_up", "move_down")
 	
 	# Get horizontal input (ui_left = left arrow or A, ui_right = right arrow or D)
 	var horizontal_direction := Input.get_axis("ui_left", "ui_right")

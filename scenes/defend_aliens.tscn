@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://bnpas8f827x8h"]
+
+[ext_resource type="Texture2D" uid="uid://d17c7eb5v2uj4" path="res://assets/Untitled_Artwork 13.png" id="1_lhft5"]
+[ext_resource type="Script" uid="uid://dmdk4k4yuarwt" path="res://scripts/defend_aliens.gd" id="1_nyivq"]
+[ext_resource type="AudioStream" uid="uid://dhkfpijatm8h4" path="res://assets/siren-a-248662.mp3" id="1_pirfu"]
+[ext_resource type="AudioStream" uid="uid://c6a83g7f1hfhv" path="res://assets/deep-space-loop-401165.mp3" id="2_lhft5"]
+[ext_resource type="PackedScene" uid="uid://d334e4fssiptw" path="res://scenes/attack_ship.tscn" id="4_pi7ee"]
+[ext_resource type="Script" uid="uid://donapesjmt3ao" path="res://scripts/alien_spawner.gd" id="5_v27mm"]
+[ext_resource type="PackedScene" uid="uid://dfsvi272xo3q6" path="res://scenes/GUI.tscn" id="6_41qpj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pi7ee"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v27mm"]
+bg_color = Color(1.347661e-06, 0.6255408, 0.63391316, 1)
+
+[node name="DefendAliens" type="Node2D"]
+script = ExtResource("1_nyivq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -10
+offset_left = 1888.0
+offset_top = -346.99997
+offset_right = 3602.0
+offset_bottom = 3749.0
+rotation = 1.5707964
+scale = Vector2(0.8009032, 0.79910386)
+texture = ExtResource("1_lhft5")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -337.0
+offset_top = 816.0
+offset_right = 806.1245
+offset_bottom = 843.0
+scale = Vector2(1.6000005, 0.7938861)
+theme_override_styles/background = SubResource("StyleBoxFlat_pi7ee")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v27mm")
+show_percentage = false
+
+[node name="BGAlarm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_pirfu")
+volume_db = -25.864
+autoplay = true
+bus = &"New Bus"
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lhft5")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = 617.0
+offset_top = 5.999999
+offset_right = 657.0
+offset_bottom = 46.0
+scale = Vector2(12.759997, 2.8400002)
+color = Color(1, 1, 1, 0.1882353)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 53.0
+offset_right = 534.0
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.47234213, 0.3763518, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Survive the Alien Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 51.0
+offset_top = 59.0
+offset_right = 532.0
+offset_bottom = 140.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7756669, 0.51814365, 0.7091601, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 28
+text = "Hold LMB to Shoot"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 58.0
+offset_top = 28.0
+offset_right = 539.0
+offset_bottom = 109.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7756669, 0.51814365, 0.7091601, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 28
+text = "Space or RMB to Accelerate. "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackShip" parent="." instance=ExtResource("4_pi7ee")]
+position = Vector2(191, 358)
+
+[node name="AlienSpawner" type="Node2D" parent="."]
+script = ExtResource("5_v27mm")
+spawn_rate = 0.8
+
+[node name="Gui" parent="." instance=ExtResource("6_41qpj")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 323)
+zoom = Vector2(0.63, 0.63)

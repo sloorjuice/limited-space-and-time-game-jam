@@ -14,38 +14,39 @@ bg_color = Color(0.29140103, 0.72799426, 0.34058762, 1)
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_jbthi")
 
+[node name="TextureRect" type="ColorRect" parent="."]
+offset_top = 33.0
+offset_right = 244.0
+offset_bottom = 87.0
+scale = Vector2(1.0841537, 1.5375566)
+color = Color(0.08303105, 0.034223918, 0.09527791, 0.7607843)
+
 [node name="TimeLeft" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1138.0
-offset_top = 1.0
-offset_right = -750.0
-offset_bottom = 24.0
-grow_horizontal = 0
+offset_left = 9.0
+offset_right = 431.0
+offset_bottom = 50.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/outline_size = 8
-text = "Time before landing on inhabital plannet: 19m 25s"
+text = "Time before landing on inhabital plannet: 3̸̺̓9̷̘͓́̑̑́2̴̡̫͔̉̊͛̃̊͆8̵̡̠̠͕̏̚ͅ0̶̻̬̮͉͍̀͝0̴̞̎͜0̸̙͛̈́9̴̺̝̱͇̫̩̎̆̌̅̿9̶̭̑̇̆̄9̶̤̻̝͑9̸̻̥̗̙̮̥͋̓̑̾̿͘"
 
 [node name="ColorRect" type="ColorRect" parent="TimeLeft"]
 z_index = -1
 layout_mode = 0
-offset_right = 397.0
-offset_bottom = 28.0
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 388.0
+offset_bottom = 14.0
+scale = Vector2(1.1098166, 1.6861775)
 color = Color(0.08303105, 0.034223918, 0.09527791, 0.7607843)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 268.0
 offset_bottom = 78.0
 theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 22
+theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
-
-[node name="TextureRect" type="ColorRect" parent="MarginContainer"]
-layout_mode = 2
-color = Color(0.08303105, 0.034223918, 0.09527791, 0.7607843)
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -83,6 +84,11 @@ show_percentage = false
 layout_mode = 2
 theme_override_constants/outline_size = 8
 text = "Food Supply"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "Survivors Count: 24"
 
 [node name="DeathScreen" type="Control" parent="."]
 visible = false

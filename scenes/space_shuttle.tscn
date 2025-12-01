@@ -60,7 +60,7 @@ position = Vector2(135, 368)
 scale = Vector2(1.28, 1.28)
 
 [node name="FoodButton" parent="." instance=ExtResource("3_81isq")]
-position = Vector2(723.99994, 458)
+position = Vector2(775, 486)
 scale = Vector2(1.6, 1.6)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
